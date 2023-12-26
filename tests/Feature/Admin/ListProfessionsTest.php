@@ -22,17 +22,7 @@ class ListProfessionsTest extends TestCase
             ->assertSeeInOrder([
                 'Administrador',
                 'Diseñador',
-                'Programador',asdasdadsasdh
-
-
-                ñajsdjajsdljañsjdpojasd
-
-                ashdljaksd
-                asdjasjdjadsjakdjasd
-
-                asndajsdjasdjajsdas
-                da
-                
+                'Programador',
             ]);
     }
 }

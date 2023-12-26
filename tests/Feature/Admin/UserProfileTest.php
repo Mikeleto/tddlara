@@ -4,7 +4,6 @@ namespace Tests\Feature\Admin;
 
 use App\Profession;
 use App\User;
-use App\UserProfile;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -13,7 +12,8 @@ class UserProfileTest extends TestCase
     use RefreshDatabase;
 
     protected $defaultData = [
-        'name' => 'Pepe',
+        'first_name' => 'Pepe',
+        'last_name' => 'Perez',
         'email' => 'pepe@mail.es',
         'bio' => "Programador de Laravel y VueJS",
         'twitter' => 'https://twitter.com/pepe',
@@ -23,7 +23,6 @@ class UserProfileTest extends TestCase
     function a_user_can_edit_its_profile()
     {
         $user = factory(User::class)->create();
-        $user->profile()->save(factory(UserProfile::class)->make());
 
         $newProfession = factory(Profession::class)->create();
 
@@ -33,7 +32,8 @@ class UserProfileTest extends TestCase
         $response->assertStatus(200);
 
         $response = $this->put('editar-perfil', [
-            'name' => 'Pepe',
+            'first_name' => 'Pepe',
+            'last_name' => 'Perez',
             'email' => 'pepe@mail.es',
             'bio' => "Programador de Laravel y VueJS",
             'twitter' => 'https://twitter.com/pepe',
@@ -44,7 +44,8 @@ class UserProfileTest extends TestCase
 
         $this->assertDatabaseHas('users',
             [
-                'name' => 'Pepe',
+                'first_name' => 'Pepe',
+                'last_name' => 'Perez',
                 'email' => 'pepe@mail.es',
             ]
         );
@@ -74,7 +75,6 @@ class UserProfileTest extends TestCase
             'role' => 'user',
         ]);
     }
-    STREAM_NOTIFY_MIME_TYPE_IS 
 
     /** @test */
     function the_user_cannot_change_its_password()
@@ -82,9 +82,6 @@ class UserProfileTest extends TestCase
         $user = factory(User::class)->create([
             'password' => bcrypt('old123'),
         ]);
-
-        hdahshdann asdpoadnad
-        asda
 
         $response = $this->put('editar-perfil', $this->withData([
             'email' => 'pepe@mail.es',
@@ -97,16 +94,5 @@ class UserProfileTest extends TestCase
             'email' => 'pepe@mail.es',
             'password' => 'old123',
         ]);
-    }
-
-    /** @test */
-
-    public function user_mola(){
-        $user = factory(User::class)->create([
-            'name' => 'macaco',
-        ]);
-
-        $this->get('usuarios/')
-         ->assertSee('macaco');
     }
 }

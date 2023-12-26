@@ -315,5 +315,17 @@ class CreateUsersTest extends TestCase
         $this->assertDatabaseEmpty('users');
     }
 
-   
+    /** @test */
+    function the_bio_field_empty()
+    {
+        $this->handleValidationExceptions();
+
+        $this->from('usuarios/nuevo')
+            ->post('usuarios', $this->withData([
+                'bio' => ''
+            ]))
+            ->assertSessionHasErrors(['bio']);
+
+        $this->assertDatabaseEmpty('users');
+    }
 }
